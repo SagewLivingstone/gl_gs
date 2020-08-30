@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gl_gs", "gl_gs.vcxproj", "{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Debug|x64.ActiveCfg = Debug|x64
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Debug|x64.Build.0 = Debug|x64
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Debug|x86.ActiveCfg = Debug|Win32
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Debug|x86.Build.0 = Debug|Win32
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Release|x64.ActiveCfg = Release|x64
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Release|x64.Build.0 = Release|x64
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Release|x86.ActiveCfg = Release|Win32
+		{C40AD54D-F7ED-4197-B79A-1D09019DE6AA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66C8CD24-A614-404A-BD4D-A027E7005BAD}
+	EndGlobalSection
+EndGlobal

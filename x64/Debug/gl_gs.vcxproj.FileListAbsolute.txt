@@ -1,0 +1,2 @@
+C:\dev\gl\logl\gl_gs\x64\Debug\gl_gs.exe
+C:\dev\gl\logl\gl_gs\x64\Debug\gl_gs.pdb
