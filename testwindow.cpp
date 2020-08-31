@@ -26,9 +26,15 @@ void main() \n\
 ";
 
 float tri_vertices[] = {
-    -0.5f, -0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    0.0f, 0.5f, 0.0f
+     0.5f,  0.5f,  0.0f,
+     0.5f, -0.5f,  0.0f,
+    -0.5f, -0.5f,  0.0f,
+    -0.5f,  0.5f,  0.0f,
+};
+
+unsigned int indices[] = {
+    0, 1, 3,
+    1, 2, 3,
 };
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -40,6 +46,12 @@ void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 int main()
@@ -75,14 +87,6 @@ int main()
     /* Setting up handling viewport size */
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-
-    /* Creating Test Geometry !!! */
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(tri_vertices), tri_vertices, GL_STATIC_DRAW);
 
     /* Shader Instancing */
     unsigned int vertexShader, fragmentShader;
@@ -128,29 +132,41 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    /* VAO Generation */
-    unsigned int VAO;
+    /* Define buffers */
+    unsigned int VAO, VBO, EBO;
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
     glGenVertexArrays(1, &VAO);
 
+    /* Render Initialization */
     glBindVertexArray(VAO);
+    // Copy vertex data into a buffer for opengl to use
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(tri_vertices), tri_vertices, GL_STATIC_DRAW);
+    // Copy element data (indices) into a buffer for opengl to use
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    // Set vertex attribute pointers and enable
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     /* Begin Main Loop */
     while (!glfwWindowShouldClose(window))
     {
-        processInput(window);
+        /* Input handling */
+        processInput(window); // Should this be post-frame to minimize input-delay?
 
+        // Clear frame
         glClearColor(0.2f, 0.3f, 0.33f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         /* Rendering */
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0); // Unbind once we're done
 
+        /* Render and update */
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
