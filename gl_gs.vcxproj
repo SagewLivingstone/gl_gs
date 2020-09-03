@@ -149,8 +149,8 @@
     <ClCompile Include="testwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\fragment\test.fs" />
-    <None Include="shaders\vertex\test.vs" />
+    <None Include="shaders\fragment\test.frag" />
+    <None Include="shaders\vertex\test.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfwOpenGLWindow.h" />

@@ -81,7 +81,7 @@ int main()
     glfwOpenGLWindow window(800, 600);
     window.init();
 
-    Shader testShader("shaders/vertex/test.vs", "shaders/fragment/test.fs");
+    Shader testShader("shaders/vertex/test.vert", "shaders/fragment/test.frag");
 
     /* Buffer instancing */
     unsigned int VAO, VBO, CBO, EBO;
