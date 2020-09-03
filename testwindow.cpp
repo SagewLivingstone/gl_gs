@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Shader.h"
+#include "glfwOpenGLWindow.h"
 
 
 // const string shader -- change later to separate file !!!
@@ -77,43 +78,8 @@ void processInput(GLFWwindow* window)
 
 int main()
 {
-    glfwInit();
-    
-    // Set window hints
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    // Needed for backwards compat on Mac OS X -- not using now...
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-
-    /* Create GLFW Window Object */
-
-    GLFWmonitor* monitor = NULL;
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Window Title", monitor, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window); // Not sure why we need this?
-    // Note: i think a lot of this could be encapsulated into a "glfwOpenGLWindow" class with init functions
-
-
-    /* Initialize GLAD to get function pointers */
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD!" << std::endl;
-        return -1;
-    }
-
-    /* Setting up handling viewport size */
-    glViewport(0, 0, 800, 600);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+    glfwOpenGLWindow window(800, 600);
+    window.init();
 
     Shader testShader("shaders/vertex/test.vs", "shaders/fragment/test.fs");
 
@@ -123,7 +89,6 @@ int main()
     glGenBuffers(1, &CBO);
     glGenBuffers(1, &EBO);
     glGenVertexArrays(1, &VAO);
-
     
     /* Render Initialization */
     glBindVertexArray(VAO);
@@ -145,17 +110,17 @@ int main()
     glBindVertexArray(0);
 
     /* Begin Main Loop */
-    while (!glfwWindowShouldClose(window))
+    while (!window.shouldClose())
     {
         /* Input handling */
-        processInput(window); // Should this be post-frame to minimize input-delay?
+        processInput(window.getWindow()); // Should this be post-frame to minimize input-delay?
 
         // Clear frame
         glClearColor(0.2f, 0.3f, 0.33f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Color
-        float timeValue = glfwGetTime();
+        float timeValue = (float)glfwGetTime();
         float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
 
         /* Rendering */
@@ -165,7 +130,7 @@ int main()
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         /* Render and update */
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
     }
 

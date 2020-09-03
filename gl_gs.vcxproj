@@ -149,11 +149,12 @@
     <ClCompile Include="testwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shader.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="shaders\fragment\test.fs" />
     <None Include="shaders\vertex\test.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glfwOpenGLWindow.h" />
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
